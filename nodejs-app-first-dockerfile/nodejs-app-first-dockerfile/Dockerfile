@@ -15,10 +15,16 @@ WORKDIR /app
 # . : path inside the image that this files should be stored
 # ./ : due to current working directory
 # it is recommended use a subfolder, not the root
-COPY . /app
+
+# copy first the specificaions of node.js to install
+COPY package.json /app
 
 # install all the dependecies for node app
 RUN npm install
+
+# copy the source code again
+# doesn't install npm every time the source code is changed
+COPY . /app
 
 # a docker container is by default isolated from our local environment
 # let docker know that when this container is started
