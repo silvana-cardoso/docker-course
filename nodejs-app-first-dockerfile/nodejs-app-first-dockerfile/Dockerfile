@@ -4,7 +4,7 @@
 
 # name of the base image
 # exits on dockerhub or locally
-FROM node
+FROM node:12
 
 # default: root
 # all comands wil be executed from inside this folder
