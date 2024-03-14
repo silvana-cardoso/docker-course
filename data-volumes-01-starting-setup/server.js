@@ -36,7 +36,12 @@ app.post('/create', async (req, res) => {
     if (exists) {
       res.redirect('/exists');
     } else {
-      await fs.rename(tempFilePath, finalFilePath);
+      // rename method doesn't work if the file is moved across multiple devices
+      // if volume is defined as is in the Dockerfile
+      // await fs.rename(tempFilePath, finalFilePath);
+      // work around:
+      await fs.copyFile(tempFilePath, finalFilePath);
+      await fs.unlink();
       res.redirect('/');
     }
   });
